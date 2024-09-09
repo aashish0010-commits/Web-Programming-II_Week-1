@@ -12,11 +12,14 @@
     <header>
         <h1>Welcome to the Online Learning Platform</h1>
         <nav>
-            <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Courses</a></li>
-                <li><a href="#">About</a></li>
-                <li><a href="#">Contact</a></li>
+            <ul class="main-nav">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#courses">Courses</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="logout-nav">
+                <li><a href="/login" id="logoutBtn">Logout</a></li>
             </ul>
         </nav>
     </header>
@@ -116,7 +119,6 @@
         <h2>Stay Updated</h2>
         <p>Subscribe to our newsletter to receive the latest news and course updates.</p>
         <form action="#" method="POST">
-            <input type="email" name="email" placeholder="Enter your email" required>
             <button type="submit">Subscribe</button>
         </form>
     </section>

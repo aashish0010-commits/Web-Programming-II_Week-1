@@ -12,7 +12,7 @@ document.querySelectorAll('.course-item, .featured-course-item').forEach(item =>
     item.addEventListener('mouseenter', function() {
         this.style.transform = 'scale(1.05)';
     });
-
+e
     item.addEventListener('mouseleave', function() {
         this.style.transform = 'scale(1)';
     });

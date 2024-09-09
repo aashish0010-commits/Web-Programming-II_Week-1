@@ -16,25 +16,69 @@ header {
 
 header h1 {
   margin: 0;
+  padding: 30px 0px;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background-color: #333;
 }
 
 nav ul {
   list-style-type: none;
   padding: 0;
+  margin: 0;
+  display: flex;
 }
 
 nav ul li {
-  display: inline;
   margin: 0 15px;
 }
 
 nav ul li a {
   color: #fff;
   text-decoration: none;
+  font-size: large;
 }
 
 nav ul li a:hover {
   text-decoration: underline;
+}
+
+/* Main and Logout Navigation */
+.main-nav {
+  justify-content: flex-start;
+}
+
+.logout-nav {
+  justify-content: flex-end;
+  border: transparent;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.logout-nav:hover{
+  background-color: #0066cc;
+}
+
+.logout-nav a{
+  color: black;
+  font-weight: bold;
+}
+
+.logout-nav a:hover{
+  color: white;
+}
+
+/* Responsive Navigation: Centers logout on smaller screens */
+@media (max-width: 768px) {
+  .logout-nav {
+    justify-content: center;
+  }
 }
 
 .intro {
@@ -92,14 +136,18 @@ section p {
   text-align: center;
 }
 
-.course-list {
+.course-list,
+.featured-course-list,
+.testimonial-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
   gap: 20px;
 }
 
-.course-item {
+.course-item,
+.featured-course-item,
+.testimonial-item {
   background-color: #f8f8f8;
   border: 1px solid #ddd;
   border-radius: 5px;
@@ -126,31 +174,13 @@ section p {
   color: #666;
 }
 
-
 .course-item a {
-    text-decoration: none;
-  }
-
-.featured-course-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
+  text-decoration: none;
 }
 
 .featured-course-item {
   background-color: #e6f7ff;
   border: 1px solid #b3e0ff;
-  border-radius: 5px;
-  padding: 20px;
-  text-align: center;
-  flex-basis: 30%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-}
-
-.featured-course-item h3 {
-  color: #0066cc;
 }
 
 .featured-course-item button {
@@ -166,23 +196,6 @@ section p {
 
 .featured-course-item button:hover {
   background-color: #004c99;
-}
-
-.testimonial-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 20px;
-  text-align: center;
-}
-
-.testimonial-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  flex-basis: 30%;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 #newsletter {
@@ -225,6 +238,65 @@ section p {
   background-color: #004c99;
 }
 
+form {
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.555);
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: #333;
+}
+
+input {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #004c99;
+}
+
+p {
+  text-align: center;
+}
+
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  form {
+      width: 90%;
+  }
+}
+
 footer {
   background-color: #333;
   color: #fff;
@@ -246,10 +318,15 @@ footer a:hover {
   text-decoration: underline;
 }
 
+/* Responsive changes for smaller screens */
 @media (max-width: 768px) {
   .course-item,
   .featured-course-item,
   .testimonial-item {
     flex-basis: 100%;
+  }
+
+  header h1 {
+    font-size: 1.5rem;
   }
 }

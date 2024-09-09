@@ -23,4 +23,9 @@ public class Hellocontroller {
         model.addAttribute("OurCourses", ourCourses);
         return "home"; 
     }
+
+    @GetMapping("/home")
+    public String showHomePage(Model model) {
+        return home(model);
+    }
 }
