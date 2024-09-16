@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Online Learning Platform</title>
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
     <header>
@@ -12,17 +12,18 @@
     </header>
 
     <section>
-        <form action="/register" method="POST">
+        <form th:action="@{/register}" method="POST">
 
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email"  placeholder="Enter Email" required>
+            <input type="email" id="email" name="email" placeholder="Enter Email" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password"  placeholder="Enter Password" required>
+            <input type="password" id="password" name="password" placeholder="Enter Password" required>
 
             <button type="submit">Register</button>
         </form>
-        <p>Already have an account? <a href="/login">Login here</a></p>
+
+        <p>Already have an account? <a th:href="@{/login}">Login here</a></p>
     </section>
 
     <footer>

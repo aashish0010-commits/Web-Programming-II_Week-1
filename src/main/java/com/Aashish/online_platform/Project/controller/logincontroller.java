@@ -10,17 +10,21 @@ import org.springframework.web.servlet.ModelAndView;
 public class logincontroller {
 
     @GetMapping("/login")
-    public String showLoginPage() {
-        return "login";
+    public ModelAndView showLoginPage(@RequestParam(value = "error", required = false) String error) {
+        ModelAndView modelAndView = new ModelAndView("login");
+        if (error != null) {
+            modelAndView.addObject("error", "Invalid credentials. Please try again.");
+        }
+        return modelAndView;
     }
 
     @PostMapping("/login")
     public ModelAndView loginUser(@RequestParam("username") String username, 
                                   @RequestParam("password") String password) {
-        if(username.equals("admin") && password.equals("password")) {
+        if (username.equals("admin") && password.equals("password")) {
             return new ModelAndView("redirect:/home");
         } else {
-            return new ModelAndView("login", "error", "Invalid credentials");
+            return new ModelAndView("redirect:/login?error=true");
         }
     }
 }

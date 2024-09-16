@@ -11,14 +11,13 @@ public class registercontroller {
 
     @GetMapping("/register")
     public String showRegisterPage() {
-        return "register";
+        return "register";  
     }
 
     @PostMapping("/register")
-    public ModelAndView registerUser(@RequestParam("username") String username,
-                                     @RequestParam("password") String password,
-                                     @RequestParam("email") String email) {
-        return new ModelAndView("redirect:/login");
+    public ModelAndView registerUser(@RequestParam("email") String email,  
+                                     @RequestParam("password") String password) {  
+     
+        return new ModelAndView("redirect:/login");  
     }
 }
-
