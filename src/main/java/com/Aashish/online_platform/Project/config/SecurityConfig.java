@@ -10,11 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -25,29 +25,42 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests((authorize) -> authorize
-                        .requestMatchers("/register/**").permitAll()
-                        .requestMatchers("/index").permitAll()
-                        .requestMatchers("/home").hasRole("ADMIN")
-                        .requestMatchers("/continue").permitAll())
-                .formLogin(
-                        form -> form
-                                .loginPage("/login")
-                                .loginProcessingUrl("/login")
-                                .defaultSuccessUrl("/home")
-                                .permitAll())
-                .logout(
-                        logout -> logout
-                                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                                .permitAll());
+        http.csrf(csrf -> csrf.disable()) 
+            .authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/register/**", "/login", "/css/**", "/js/**", "/images/**", "/index").permitAll()
+                .requestMatchers("/home").hasAuthority("ROLE_ADMIN")
+                .anyRequest().authenticated()
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/home", true)
+                .permitAll()
+            )
+            .logout(logout -> logout
+                .logoutUrl("/logout")  
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true) 
+                .deleteCookies("JSESSIONID") 
+                .permitAll()
+            )
+            .sessionManagement(session -> session
+                .sessionFixation().migrateSession() 
+                .maximumSessions(1) 
+                .maxSessionsPreventsLogin(true) 
+                .expiredUrl("/login?expired") 
+            )
+            .exceptionHandling(exception -> exception
+                .accessDeniedPage("/403") 
+            );
+
         return http.build();
     }
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(passwordEncoder());
+            .userDetailsService(userDetailsService)
+            .passwordEncoder(passwordEncoder());
     }
 }

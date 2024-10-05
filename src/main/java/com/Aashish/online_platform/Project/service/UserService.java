@@ -2,13 +2,13 @@ package com.Aashish.online_platform.Project.service;
 
 import java.util.List;
 
-import com.Aashish.online_platform.Project.dto.UserDto;  
-import com.Aashish.online_platform.Project.model.User;
+import com.Aashish.online_platform.Project.dto.MyUserDto;  
+import com.Aashish.online_platform.Project.model.UserModel;
 
 public interface UserService {
-    void saveUser(UserDto usersDto);  
+    void saveUser(MyUserDto usersDto);  
 
-    User findUserByEmail(String email);
+    UserModel findUserByEmail(String email);
 
-    List<UserDto> findAllUsers();  
+    List<MyUserDto> findAllUsers();  
 }

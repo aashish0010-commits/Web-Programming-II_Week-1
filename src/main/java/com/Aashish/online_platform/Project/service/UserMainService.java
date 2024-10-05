@@ -6,9 +6,9 @@ import java.util.stream.Collectors;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.Aashish.online_platform.Project.dto.UserDto;  
-import com.Aashish.online_platform.Project.model.Role;  
-import com.Aashish.online_platform.Project.model.User; 
+import com.Aashish.online_platform.Project.dto.MyUserDto;  
+import com.Aashish.online_platform.Project.model.RoleModel;  
+import com.Aashish.online_platform.Project.model.UserModel; 
 import com.Aashish.online_platform.Project.repository.RoleRepository;
 import com.Aashish.online_platform.Project.repository.UserRepository;; 
 
@@ -25,14 +25,14 @@ public class UserMainService implements UserService {
     }
 
     @Override
-    public void saveUser(UserDto usersDto) {
-        User user = new User();
+    public void saveUser(MyUserDto usersDto) {
+        UserModel user = new UserModel();
         user.setName(usersDto.getFirstName() + " " + usersDto.getLastName());
         user.setEmail(usersDto.getEmail());
         //encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(usersDto.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        RoleModel role = roleRepository.findByName("ROLE_ADMIN");
         if (role == null) {
             role = checkRoleExist();
         }
@@ -40,26 +40,26 @@ public class UserMainService implements UserService {
         userRepository.save(user);
     }
 
-    private Role checkRoleExist() {
-        Role role = new Role();
+    private RoleModel checkRoleExist() {
+        RoleModel role = new RoleModel();
         role.setName("ROLE_ADMIN");
         return roleRepository.save(role);
     }
 
     @Override
-    public User findUserByEmail(String email) {
+    public UserModel findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
 
     @Override
-    public List<UserDto> findAllUsers() {
-        List<User> users = userRepository.findAll();
+    public List<MyUserDto> findAllUsers() {
+        List<UserModel> users = userRepository.findAll();
         return users.stream().map((user) -> convertEntityToDto(user))
                 .collect(Collectors.toList());
     }
 
-    private UserDto convertEntityToDto(User user) {
-        UserDto userDto = new UserDto();
+    private MyUserDto convertEntityToDto(UserModel user) {
+        MyUserDto userDto = new MyUserDto();
         String[] name = user.getName().split(" ");
         userDto.setFirstName(name[0]);
         userDto.setLastName(name[1]);

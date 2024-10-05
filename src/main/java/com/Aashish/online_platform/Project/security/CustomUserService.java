@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.Aashish.online_platform.Project.model.Role;  
-import com.Aashish.online_platform.Project.model.User;  
+import com.Aashish.online_platform.Project.model.RoleModel;  
+import com.Aashish.online_platform.Project.model.UserModel;  
 import com.Aashish.online_platform.Project.repository.UserRepository;  
 
 @Service
@@ -25,7 +25,7 @@ public class CustomUserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
+        UserModel user = userRepository.findByEmail(email);
 
         if (user != null) {
             return new org.springframework.security.core.userdetails.User(user.getEmail(),
@@ -35,7 +35,7 @@ public class CustomUserService implements UserDetailsService {
             throw new UsernameNotFoundException("Invalid username or password.");
         }
     }
-    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<RoleModel> roles) {
         Collection<? extends GrantedAuthority> mapRoles = roles.stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
