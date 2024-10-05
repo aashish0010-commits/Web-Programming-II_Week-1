@@ -41,7 +41,7 @@ public class MainController {
                                          BindingResult bindingResult,
                                          Model model) {
         if (isEmailAlreadyRegistered(userDto.getEmail())) {
-            bindingResult.rejectValue("email", null, "An account with this email already exists.");
+            bindingResult.rejectValue("email", "email.exists", "An account with this email already exists.");
         }
 
         if (bindingResult.hasErrors()) {
